@@ -8,29 +8,23 @@ const csv = require('csv-parser');
 app.use(cors());
 app.use(express.json());
 
-// DUMMY DATA
-// const data = {   
-//     name: 'John Doe',
-//     age: 30,
-//     email: 'john@example.com'
-// };
-// app.get('/',(req,res)=>{
-//     const results = [];
+app.get('/', (req, res) => {
+    console.log("I was here.");
+    const results = [];
 
-//     // Read the CSV file using fs.createReadStream
-//     fs.createReadStream('./data.csv')
-//       .pipe(csv())
-//       .on('data', (data) => results.push(data))
-//       .on('end', () => {
-//         console.log(results);
-//         res.json(results); // Send the parsed CSV data as JSON response
-//       })
-//       .on('error', (error) => {
-//         console.error('Error reading CSV file:', error);
-//         res.status(500).send('Error reading CSV file');
-//       });
-// });
-
+    // Read the CSV file using fs.createReadStream
+    fs.createReadStream('./data.csv')
+      .pipe(csv())
+      .on('data', (data) => results.push(data))
+      .on('end', () => {
+        console.log(results);
+        res.json(results); // Send the parsed CSV data as JSON response
+      })
+      .on('error', (error) => {
+        console.error('Error reading CSV file:', error);
+        res.status(500).send('Error reading CSV file');
+      });
+});
 
 app.post('/', (req, res) => {
     // Extract data from request body
